@@ -277,6 +277,7 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[SYSTEM]", "(SYSTEM)"),
                 ("[TIPS]", "(TIPS)"),
                 ("[NOTICE]", "(NOTICE)"),
+                ("[ALERT]", "(ALERT)"),
                 # ("_bug_", "[bug]"),  # type `_bug_`, get `bug` tag in square style
                 # ("_noqa_", "(noqa)"),  # type `_noqa_`, get `noqa` tag in rounded style
                 # (":test:", "<test>"),  # type `:test:`, get `test` tag in sharp style
