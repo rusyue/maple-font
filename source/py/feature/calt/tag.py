@@ -278,6 +278,20 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[TIPS]", "(TIPS)"),
                 ("[NOTICE]", "(NOTICE)"),
                 ("[ALERT]", "(ALERT)"),
+                ("[ON]", "(ON)"),
+                ("[OFF]", "(OFF)"),
+                ("[STATE]", "(STATE)"),
+                ("[TOGGLE]", "(TOGGLE)"),
+                ("[NEXUS]", "(NEXUS)"),
+                ("[APP]", "(APP)"),
+                ("[HUD]", "(HUD)"),
+                ("[FUNC]", "(FUNC)"),
+                ("[SCRIPT]", "(SCRIPT)"),
+                ("[FLAG]", "(FLAG)"),
+                ("[DONE]", "(DONE)"),
+                ("[PROGRESS]", "(PROGRESS)"),
+                ("[COMPLETE]", "(COMPLETE)"),
+                ("[QuickCapsMode]", "(QuickCapsMode)"),
                 # ("_bug_", "[bug]"),  # type `_bug_`, get `bug` tag in square style
                 # ("_noqa_", "(noqa)"),  # type `_noqa_`, get `noqa` tag in rounded style
                 # (":test:", "<test>"),  # type `:test:`, get `test` tag in sharp style
