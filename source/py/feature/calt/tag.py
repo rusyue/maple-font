@@ -15,6 +15,10 @@ built_in_tag_text = [
     "mark",
     "eror",
     "warning",
+    "success",
+    "toast",
+    "notice",
+    "system",
 ]
 
 
