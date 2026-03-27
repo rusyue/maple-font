@@ -15,10 +15,6 @@ built_in_tag_text = [
     "mark",
     "eror",
     "warning",
-    "success",
-    "toast",
-    "notice",
-    "system",
 ]
 
 
@@ -275,6 +271,10 @@ def get_lookup(cls_var: ast.Clazz):
         # ---------------------------------------------------------
         tag_custom(
             [
+                ("[SUCCESS]", "[SUCCESS]"),
+                ("[TOAST]", "[TOAST]"),
+                ("[SYSTEM]", "[SYSTEM]"),
+                ("[TIPS]", "[TIPS]"),
                 # ("_bug_", "[bug]"),  # type `_bug_`, get `bug` tag in square style
                 # ("_noqa_", "(noqa)"),  # type `_noqa_`, get `noqa` tag in rounded style
                 # (":test:", "<test>"),  # type `:test:`, get `test` tag in sharp style
