@@ -379,7 +379,6 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[SLEEP]", "(SLEEP)"),
                 ("[SNAP]", "(SNAP)"),
                 ("[SYNC]", "(SYNC)"),
-                ("[TERMINAL]", "(TERMINAL)"),
                 ("[TEST]", "(TEST)"),
                 ("[TEXT]", "(TEXT)"),
                 ("[THREAD]", "(THREAD)"),
