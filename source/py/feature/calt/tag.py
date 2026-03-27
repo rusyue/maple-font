@@ -287,7 +287,6 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[VIEW]", "(VIEW)"),
                 ("[MUSIC]", "(MUSIC)"),
                 ("[VIDEO]", "(VIDEO)"),
-                ("[FB2K]", "(FB2K)"),
                 ("[PLAY]", "(PLAY)"),
                 ("[STOP]", "(STOP)"),
                 ("[NEXT]", "(NEXT)"),
