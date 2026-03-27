@@ -405,6 +405,7 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[RUNTIME]", "(RUNTIME)"),
                 ("[COLOR]", "(COLOR)"),
                 ("[PICKER]", "(PICKER)"),
+                ("[TOPMOST]", "(TOPMOST)"),
 
                 # ========== 自定义映射（注释保留） ==========
                 # ("_bug_", "[bug]"),  # type `_bug_`, get `bug` tag in square style
