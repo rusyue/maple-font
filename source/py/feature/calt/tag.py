@@ -37,12 +37,10 @@ def tag_upper(text_list: list[str]):
         # Generates rule to substitute '[TODO]' with 'tag_todo.liga'
     """
     result = []
-
     for text in text_list:
         if text not in built_in_tag_text:
             print(f"{text} is not in {built_in_tag_text}, skip")
             continue
-
         source = ["["] + [g.upper() for g in text] + ["]"]
         result.append(
             ast.subst_liga(
@@ -52,7 +50,6 @@ def tag_upper(text_list: list[str]):
                 desc="".join(source),
             )
         )
-
     return result
 
 
@@ -76,12 +73,10 @@ def tag_any(text_list: list[str], cls_var: ast.Clazz):
         # and 'fixme))' -> 'tag_fixme.liga'
     """
     result = []
-
     for text in text_list:
         if text not in built_in_tag_text:
             print(f"{text} is not in {built_in_tag_text}, skip")
             continue
-
         glyphs = [f"@{g.upper()}" for g in text] + [")", ")"]
         result.append(
             ast.subst_liga(
@@ -116,7 +111,6 @@ def tag_any(text_list: list[str], cls_var: ast.Clazz):
                 ign_suffix=ast.cls(";", ")", "."),
             )
         )
-
     return result
 
 
@@ -156,7 +150,6 @@ def tag_custom(
         glyphs = list(source)
         glyphs_len = len(glyphs)
         target_len = len(target)
-
         if target_len != glyphs_len:
             raise ValueError(
                 f"length of `content` ({glyphs_len}) must be equal to length of `target` ({target_len})."
@@ -200,16 +193,13 @@ def tag_custom(
             if isinstance(replace, ast.Clazz):
                 replace = replace.glyphs[0]
             subst_list.append(ast.subst(before, glyph, after, replace))
-
         desc = []
         for item in source_list:
             if isinstance(item, str):
                 desc.append(item.replace("@", ""))
             elif isinstance(item, ast.Clazz):
                 desc.append(f"_{item.name}_")
-
         lookup_name = f"custom_tag_{'_'.join(desc)}"
-
         result.append(
             ast.Lookup(
                 name=lookup_name,
@@ -217,7 +207,6 @@ def tag_custom(
                 content=subst_list,
             )
         )
-
     return result
 
 
@@ -229,7 +218,6 @@ def tag_suffix_colon(text_list: list[str]):
             raise Exception(
                 f"tag with suffix `:` must be in {built_in_tag_text}, but '{text}' is not"
             )
-
         result.append(
             ast.subst_liga(
                 source=f"{text.upper()}:",
@@ -248,17 +236,14 @@ def get_lookup(cls_var: ast.Clazz):
     for item in cls_var.glyphs:
         if not isinstance(item, ast.Clazz):
             continue
-
         first = item.glyphs[0]
         if not isinstance(first, str) or len(first) > 1 or not first.isalpha():
             continue
-
         gly_list = [f"{first}.bg"]
         for gly in item.glyphs[1:]:
             if isinstance(gly, str) and gly.startswith(first):
                 _, feat = gly.split(".", 1)
                 gly_list.append(f"{first}.bg.{feat}")
-
         if len(gly_list) > 1:
             bg_cls_dict[first] = ast.Clazz(f"Bg{first.capitalize()}", gly_list)
 
@@ -268,17 +253,18 @@ def get_lookup(cls_var: ast.Clazz):
         tag_any(["todo", "fixme"], cls_var),
         # =========================================================
         #                       Custom tags
+        # 与 theme.json ligatures.tags 保持同步
         # ---------------------------------------------------------
         tag_custom(
             [
-                # ========== 系统/通用 ==========
+                # ========== 系统 / 通用 ==========
                 ("[ALERT]", "(ALERT)"),
                 ("[APP]", "(APP)"),
                 ("[FLAG]", "(FLAG)"),
                 ("[HUD]", "(HUD)"),
                 ("[KBD]", "(KBD)"),
-                ("[Keyboard]", "(Keyboard)"),
-                ("[Mode]", "(Mode)"),
+                ("[KEYBOARD]", "(KEYBOARD)"),
+                ("[MODE]", "(MODE)"),
                 ("[NEXUS]", "(NEXUS)"),
                 ("[OS]", "(OS)"),
                 ("[OSK]", "(OSK)"),
@@ -297,7 +283,7 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[SEER]", "(SEER)"),
                 ("[DOC]", "(DOC)"),
 
-                # ========== 状态/反馈 ==========
+                # ========== 状态 / 反馈 ==========
                 ("[COMPLETE]", "(COMPLETE)"),
                 ("[DONE]", "(DONE)"),
                 ("[NOTICE]", "(NOTICE)"),
@@ -313,17 +299,18 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[SETTINGS]", "(SETTINGS)"),
                 ("[TOGGLE]", "(TOGGLE)"),
 
-                # ========== 开发/脚本 ==========
+                # ========== 开发 / 脚本 ==========
                 ("[AI]", "(AI)"),
-                ("[CHAT]", "(CHAT)"),
-                ("[Code]", "(Code)"),
+                ("[AGENT]", "(AGENT)"),
+                ("[SKILL]", "(SKILL)"),
+                ("[CODE]", "(CODE)"),
                 ("[ENV]", "(ENV)"),
                 ("[FILE]", "(FILE)"),
                 ("[FS]", "(FS)"),
                 ("[FUNC]", "(FUNC)"),
                 ("[GIT]", "(GIT)"),
                 ("[CMD]", "(CMD)"),
-                ("[CMDER]", "(CMDER)"),
+                ("[POWERHELL]", "(POWERHELL)"),
                 ("[BASH]", "(BASH)"),
                 ("[TERMINAL]", "(TERMINAL)"),
                 ("[HTTP]", "(HTTP)"),
@@ -331,24 +318,24 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[ROOT]", "(ROOT)"),
                 ("[SCRIPT]", "(SCRIPT)"),
                 ("[SERVER]", "(SERVER)"),
-                ("[WORK]", "(WORK)"),
+                ("[WORKER]", "(WORKER)"),
 
-                # ========== 目录/文件 ==========
+                # ========== 文件 / 目录 ==========
                 ("[DIR]", "(DIR)"),
                 ("[PROJECT]", "(PROJECT)"),
 
-                # ========== 应用/工具 ==========
+                # ========== 应用 / 工具 ==========
                 ("[Clipboard]", "(Clipboard)"),
                 ("[Firefox]", "(Firefox)"),
                 ("[Hidden]", "(Hidden)"),
-                ("[QuickCapsMode]", "(QuickCapsMode)"),
+                ("[CapsMode]", "(CapsMode)"),
                 ("[QuickMenu]", "(QuickMenu)"),
                 ("[QuickMove]", "(QuickMove)"),
                 ("[Show]", "(Show)"),
                 ("[Typora]", "(Typora)"),
                 ("[WinManager]", "(WinManager)"),
 
-                # ========== AHK 功能类型（新增） ==========
+                # ========== AHK 功能类型 ==========
                 ("[ACTIVE]", "(ACTIVE)"),
                 ("[ALWAYSONTOP]", "(ALWAYSONTOP)"),
                 ("[API]", "(API)"),
@@ -387,7 +374,6 @@ def get_lookup(cls_var: ast.Clazz):
                 ("[SAVE]", "(SAVE)"),
                 ("[SCREEN]", "(SCREEN)"),
                 ("[SEND]", "(SEND)"),
-                ("[SHORTCUT]", "(SHORTCUT)"),
                 ("[SLEEP]", "(SLEEP)"),
                 ("[SNAP]", "(SNAP)"),
                 ("[SYNC]", "(SYNC)"),
